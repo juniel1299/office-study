@@ -10,29 +10,59 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
         const root = document.getElementById("root");
-        function Title(){
-            return ( 
-            <h3 id="title" onMouseEnter={() => console.log("hello")}>
-            Hello I'm a span
-        </h3>
-            );
-        }
-
-        const Button = () => (
-        <button 
-            style={{
-            backgroundColor: "tomato",
-        }}
-            onClick={() => console.log("i'm clicked")}>
-        Click me
-        </button>
-        );
-        //createElement 잘 안 씀 (더 좋은 방법이 있기 때문에) -> JSX를 이용함 (JavaScript 확장 문법)
-        const Container = (
-        <div>
-        <Title/> <Button/>
-        </div>
-        );
-        ReactDOM.render(Container,root);
+       
+        //createElement 잘 안 씀 (더 좋은 방법이 있기 때문에) -> JSX를 이용함 (JavaScript 확장 문법)       
+        function App(){
+            //렌더링을 상황마다 바꿔써야 하는 문제를 해결 , JSX 형태로 값과 함수를 지닌 배열 1개 생성됨 
+            /*
+            let counter = 0;
+            function countUp(){
+            //code
+            }
+             이것과 같은 의미이다. 
+            */
+            
+            const [amount, setAmount] = React.useState(0); // 디폴트 값 0 
+            const [flipped,setFlipped] = React.useState(false); // flip 을 위한 함수 
+            const onChange = (event) => {
+                setAmount(event.target.value);
+            };
+            const reset = () => setAmount(0);
+            const onFlip = () => {
+                reset();
+                setFlipped((current) => !current);
+                }
+                return (
+            <div>
+                <h1 className="hi">Super Converter</h1>
+                <div>
+                    <label htmlFor="minutes">Minutes</label>
+                        <input 
+                        value={flipped ? amount * 60 : amount  } 
+                        id="minutes" 
+                        placeholder="Minutes" 
+                        type="number"
+                        onChange = {onChange}
+                        disabled={flipped}
+                        />
+                </div>
+                <div>
+                    <label htmlFor="hours">Hours</label>
+                        <input 
+                        value={flipped ? amount : Math.round(amount/60)}
+                        id="hours"
+                        placeholder="Hours" 
+                        type="number"
+                        onChange = {onChange}
+                        disabled={!flipped}
+                        />
+                </div>
+                <button onClick={reset}>Reset</button>
+                <button onClick={onFlip}>Flip</button>
+                </div>
+                    );
+                    }
+        //동작 한 걸 적용하기 위해선 렌더링이 필요함 -> react의 render 사용  (ReactDOM.render)
+        ReactDOM.render(<App />, root);
     </script>
 </html>
