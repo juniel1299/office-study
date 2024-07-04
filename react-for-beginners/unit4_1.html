@@ -5,8 +5,7 @@
             <div id="root"></div>
         </h3>
     </body>
-    <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
-    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
@@ -16,11 +15,8 @@
       
 
         //props 는 오브젝트 이므로 props 사용할 땐 중괄호를 열어서 사용한다. 
-        function Btn({text,fontSize=12}){
+        function Btn({ text, onClick}){
             console.log(text,"was rendered");
-            const onClick = () => {
-                console.log(`${text} button was clicked`);
-            };
             return (
                 <button
                 onClick={onClick}
@@ -30,28 +26,23 @@
                     padding:"10px 20px",
                     border:0,
                     borderRadius: 10,
-                    fontSize:fontSize,
                 }}
                 >
                 {text}
                 </button>
             );
-            
-            // 리액트에서 나지 않는 오류를 확인하는 방법 
-            
         }
-            Btn.propTypes = {
-                text: PropTypes.string.isRequired,
-                fontSize: PropTypes.number,
-            };
-            
+
+        //화면 변경이 일어날 때 전체 렌더링이 발생하는데 그것으로 인해 속도가 느려질 수 있음 -> 바뀐 값에 대한 것만 개별 렌더링을 하는 방법 
+        const MemorizedBtn = React.memo(Btn);
+
         function App(){
+            const [value, setValue] = React.useState("Save Changes");
+            const changeValue = () => setValue("Revert Changes");
           return ( 
           <div>
-          
-            <Btn text="Save Changes" fontSize={18}/>
-            <Btn text={"Continue"}/>
-
+            <MemorizedBtn text={value} onClick={changeValue} />
+            <MemorizedBtn text="Continue"/>
           </div>
           );
         }

@@ -6,7 +6,7 @@
         </h3>
     </body>
     <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
-    <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
+    <scrrpt src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></scrrpt>
     <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <script type="text/babel">
@@ -16,7 +16,7 @@
       
 
         //props 는 오브젝트 이므로 props 사용할 땐 중괄호를 열어서 사용한다. 
-        function Btn({text,fontSize=12}){
+        function Btn({ text, fontSize = 14}){
             console.log(text,"was rendered");
             const onClick = () => {
                 console.log(`${text} button was clicked`);
@@ -30,7 +30,7 @@
                     padding:"10px 20px",
                     border:0,
                     borderRadius: 10,
-                    fontSize:fontSize,
+                    fontSize,
                 }}
                 >
                 {text}

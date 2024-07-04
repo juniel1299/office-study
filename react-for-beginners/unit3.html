@@ -14,12 +14,14 @@
         //createElement 잘 안 씀 (더 좋은 방법이 있기 때문에) -> JSX를 이용함 (JavaScript 확장 문법)       
         function MinutesToHours(){
             //렌더링을 상황마다 바꿔써야 하는 문제를 해결 , JSX 형태로 값과 함수를 지닌 배열 1개 생성됨 
+            
             /*
             let counter = 0;
             function countUp(){
             //code
             }
-             이것과 같은 의미이다. 
+            이것과 같은 의미이다. 
+            
             */
             
             const [amount, setAmount] = React.useState(0); // 디폴트 값 0 
@@ -34,6 +36,7 @@
                 }
                 return (
             <div>
+
                 <div>
                     <label htmlFor="minutes">Minutes</label>
                         <input 
@@ -45,6 +48,7 @@
                         disabled={inverted}
                         />
                 </div>
+
                 <div>
                     <label htmlFor="hours">Hours</label>
                         <input 
@@ -56,8 +60,10 @@
                         disabled={!inverted}
                         />
                 </div>
+
                 <button onClick={reset}>Reset</button>
                 <button onClick={onInvert}>{inverted ? "Turn Back" : "Invert"}</button>
+
                 </div>
                     );
                     }
@@ -80,7 +86,8 @@
 
                 <div>
                     <label htmlFor="km">KM</label>
-                <input 
+                
+                    <input 
                 value={inverted ? amount * 1.6 : amount  }
                 placeholder="KM" 
                 type="number" 
